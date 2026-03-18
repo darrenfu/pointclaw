@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { searchAirports } from "@/lib/airports";
 import type { Airport } from "@/lib/types";
 
@@ -17,6 +17,7 @@ export default function AirportSearch({ label, value, onChange, filterCodes }: A
   const [results, setResults] = useState<Airport[]>([]);
   const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputId = useId();
 
   useEffect(() => {
     if (query.length > 0) {
@@ -57,7 +58,7 @@ export default function AirportSearch({ label, value, onChange, filterCodes }: A
 
   return (
     <div ref={wrapperRef} className="relative">
-      <label className="block text-sm font-medium text-gray-400 mb-1">{label}</label>
+      <label htmlFor={inputId} className="block text-sm font-medium text-gray-400 mb-1">{label}</label>
       {selectedAirport ? (
         <div className="flex items-center gap-2 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2">
           <span className="font-mono font-bold text-white">{selectedAirport.code}</span>
@@ -66,6 +67,7 @@ export default function AirportSearch({ label, value, onChange, filterCodes }: A
         </div>
       ) : (
         <input
+          id={inputId}
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

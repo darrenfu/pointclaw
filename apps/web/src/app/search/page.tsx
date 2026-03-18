@@ -74,7 +74,10 @@ function SearchContent() {
 
   function handleMonthChange(newMonth: string) {
     setMonth(newMonth);
-    router.replace(`/search?origin=${origin}&dest=${destination}&month=${newMonth}`);
+    // Use replaceState for immediate URL sync (router.replace is async and may not update URL before assertions)
+    const newUrl = `/search?origin=${origin}&dest=${destination}&month=${newMonth}`;
+    window.history.replaceState(null, "", newUrl);
+    router.replace(newUrl);
   }
 
   if (!origin || !destination) {
