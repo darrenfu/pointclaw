@@ -43,6 +43,7 @@ func (p *Pool) Run(ctx context.Context, jobChan <-chan protocol.ScrapeJob) {
 	// Launch browser
 	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
 		Headless: playwright.Bool(true),
+		Args:     []string{"--no-sandbox", "--disable-dev-shm-usage"},
 	})
 	if err != nil {
 		slog.Error("failed to launch browser", "error", err)

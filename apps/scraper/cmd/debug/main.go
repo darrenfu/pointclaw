@@ -33,7 +33,7 @@ func main() {
 	defer pw.Stop()
 
 	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
-		Headless: playwright.Bool(false), // HEADED mode so you can see what happens
+		Headless: playwright.Bool(true), // Headless mode for sandbox/CI
 		Args:     []string{"--no-sandbox", "--disable-dev-shm-usage"},
 	})
 	if err != nil {
@@ -90,9 +90,9 @@ func main() {
 				if len(preview) > 1000 {
 					preview = preview[:1000] + "..."
 				}
-				fmt.Println("\n=== SEARCHBFF RESPONSE BODY ===")
+				fmt.Println("=== SEARCHBFF RESPONSE BODY ===")
 				fmt.Println(preview)
-				fmt.Println("=== END ===\n")
+				fmt.Println("=== END ===")
 
 				// Try to parse as AlaskaResponse
 				var raw map[string]interface{}
@@ -167,7 +167,7 @@ func main() {
 		if len(content) > 2000 {
 			content = content[:2000]
 		}
-		fmt.Printf("\n=== PAGE HTML (first 2000 chars) ===\n%s\n=== END ===\n\n", content)
+		fmt.Printf("=== PAGE HTML (first 2000 chars) ===\n%s\n=== END ===\n", content)
 	}
 
 	slog.Info("debug complete — check /tmp/pointclaw-debug-*.png")
