@@ -84,7 +84,14 @@ async function handleMonthQuery(redis: ReturnType<typeof getRedis>, origin: stri
 
     if (result && result[1]) {
       try {
-        const data = JSON.parse(result[1] as string) as DateResult;
+        const raw = JSON.parse(result[1] as string);
+        // Transform snake_case keys from Go scraper to camelCase for TypeScript
+        const data: DateResult = {
+          date: raw.date,
+          status: raw.status,
+          cheapest: raw.cheapest ?? null,
+          flightCount: raw.flight_count ?? 0,
+        };
         calendar[dateStr] = data;
         hasData = true;
       } catch {

@@ -19,7 +19,7 @@ type ScrapeResult struct {
 	Status      string       `json:"status"` // "success", "no_flights", "error"
 	Origin      string       `json:"origin"`
 	Destination string       `json:"destination"`
-	Cheapest    *CheapestFare `json:"cheapest,omitempty"`
+	Cheapest    *CheapestFare `json:"cheapest"`
 	FlightCount int          `json:"flight_count"`
 	ScrapedAt   time.Time    `json:"scraped_at"`
 }
